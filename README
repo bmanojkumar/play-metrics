@@ -5,3 +5,12 @@ To build, clone this repo, and run `activator publish-local`
 
 To add to a project, add the following in `build.sbt`
 `libraryDependencies += "com.phenom" % "play-metrics_2.11" % "1.0"`
+
+Add the following properties in the conf file:
+
+Eg:
+
+metrics.graphiteHost=""
+metrics.graphitePort=9500
+metrics.serviceName="cms"
+metrics.pingInterval=1
