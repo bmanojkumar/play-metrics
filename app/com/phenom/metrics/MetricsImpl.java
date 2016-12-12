@@ -41,6 +41,8 @@ public class MetricsImpl implements Metrics {
                 .filter(MetricFilter.ALL)
                 .build(graphite);
         graphiteReporter.start(PING_INTERVAL, TimeUnit.SECONDS);
+        logger.info("Phenom Metrics Graphite Reporter started -- " + GRAPHITE_HOST + ":" + GRAPHITE_PORT + ":" + HOST_NAME);
+        startConsoleReport(registry);
         lifecycle.addStopHook(()-> {
             logger.debug("Shutting down metrics plugin");
             graphiteReporter.stop();
@@ -61,5 +63,13 @@ public class MetricsImpl implements Metrics {
             logger.error("Error fetching hostname");
             return "";
         }
+    }
+
+    static void startConsoleReport(MetricRegistry registry) {
+        ConsoleReporter reporter = ConsoleReporter.forRegistry(registry)
+                .convertRatesTo(TimeUnit.SECONDS)
+                .convertDurationsTo(TimeUnit.MILLISECONDS)
+                .build();
+        reporter.start(1, TimeUnit.SECONDS);
     }
 }
