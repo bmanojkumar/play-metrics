@@ -14,3 +14,6 @@ metrics.graphiteHost=""
 metrics.graphitePort=9500
 metrics.serviceName="cms"
 metrics.pingInterval=1
+
+Add the following to logback.xml
+<logger name="metrics" level="DEBUG" />
